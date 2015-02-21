@@ -11,32 +11,48 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/alunos")
 public class AlunoController {
 	private AlunoRepo repo = new AlunoRepo();	
+	
 	@RequestMapping(value = "/adicionarAluno/{nome}/{ra}",method=RequestMethod.GET)
-	public void criarAluno(@PathVariable String nome, @PathVariable int ra){
+	public String criarAluno(@PathVariable String nome, @PathVariable int ra){
 		Aluno novo = new Aluno(nome,ra);  
 		repo.addAluno(novo);
+		return "Sucesso!";
 	}
 	
-	@RequestMapping(value ="/listarAlunos",method=RequestMethod.POST)
+	@RequestMapping(value ="/listarAlunos",method=RequestMethod.GET)
 	public List<Aluno> getAlunos(){
+		/*for(Aluno a : repo.listarTodos()){
+			return ("Nome:" + a.getNome() + " Ra: " + a.getRa());
+		}
+	*/	
 		return repo.listarTodos();
 	}
     
-	@RequestMapping(value = "/buscaAluno/{nome}",method=RequestMethod.POST)
+	@RequestMapping(value = "/buscaNome/{nome}",method=RequestMethod.GET)
 	public String buscarAluno(@PathVariable String nome){
 		Aluno aluno = null;
 	    aluno = repo.buscarAluno(nome);
-	    return aluno.getNome();
+	    if(aluno!=null)
+	    	return aluno.getNome();
+	    else
+	    	return "Vazio";
 	}
 	
-	@RequestMapping(value = "/buscaAluno/{ra}",method=RequestMethod.POST)
-	public String buscarAluno(int ra){
+	@RequestMapping(value = "/buscaRa/{ra}",method=RequestMethod.GET)
+	public String buscarAluno(@PathVariable Integer ra){
 		Aluno aluno = null;
 	    aluno = repo.buscarAluno(ra);
-	    return aluno.getNome();
+	    if(aluno!=null)
+	    	return aluno.getNome();
+	    else
+	    	return "Vazio";
 	}
-	@RequestMapping(value = "/buscaAluno/{nome}/{ra}",method=RequestMethod.POST)
-	public Aluno buscarAluno(String nome, int ra){
-		return repo.buscarAluno(nome, ra);
+	@RequestMapping(value = "/buscaAluno/{nome}/{ra}",method=RequestMethod.GET)
+	public String buscarAluno(@PathVariable String nome, @PathVariable Integer ra){
+		Aluno aluno = repo.buscarAluno(nome, ra);
+		if(aluno != null)
+			return aluno.getNome();
+		else
+			return "Vazio";
 	}
 }

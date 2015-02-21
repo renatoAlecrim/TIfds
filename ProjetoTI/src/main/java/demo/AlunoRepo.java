@@ -28,8 +28,10 @@ public class AlunoRepo {
 	public Aluno buscarAluno(Integer ra){
 		Aluno aluno = null;
 		for (Aluno al : repo) {
-			if(al.getRa().equals(ra)){
-				aluno = al;
+			if(al!=null){
+				if((al.getRa()).equals(ra)){
+					aluno = al;
+				}
 			}
 		}
 		return aluno;
@@ -38,8 +40,8 @@ public class AlunoRepo {
 	public Aluno buscarAluno(String nome, Integer ra){
 		Aluno aluno = null;
 		for (Aluno al : repo) {
-			if(al.getNome().equals(nome) &&
-				al.getRa().equals(ra)){
+			if((al.getNome()).equals(nome) &&
+				(al.getRa()).equals(ra)){
 				
 				aluno = al;
 			}
