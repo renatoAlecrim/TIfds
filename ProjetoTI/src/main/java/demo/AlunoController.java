@@ -1,5 +1,6 @@
 package demo;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,12 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class AlunoController {
 	private AlunoRepo repo = new AlunoRepo();
 	
-	@RequestMapping(value = "/addAluno{nome}{ra}",method=RequestMethod.GET)
-	public void addAluno(){
-	   String nome;
-	   int ra;
-	   Aluno novo = new Aluno(ra,nome);
-	   repo.addAluno(novo);	   
+	@RequestMapping(value = "/adicionarAluno/{nome}/{ra}",method=RequestMethod.GET)
+	public void criarAluno(@PathVariable String nome, @PathVariable int ra){
+		  repo.addAluno(new Aluno(ra,nome));
 	}
 	
 	public ArrayList getAlunos(){
