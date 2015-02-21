@@ -35,7 +35,7 @@ public class AlunoController {
 	    aluno = repo.buscarAluno(ra);
 	    return aluno.getNome();
 	}
-	@RequestMapping(value = "/buscaAluno/{nome}/ra",method=RequestMethod.POST)
+	@RequestMapping(value = "/buscaAluno/{nome}/{ra}",method=RequestMethod.POST)
 	public Aluno buscarAluno(String nome, int ra){
 		return repo.buscarAluno(nome, ra);
 	}
