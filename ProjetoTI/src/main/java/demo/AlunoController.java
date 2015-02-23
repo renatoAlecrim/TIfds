@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AlunoController {
 	private AlunoRepo repo = new AlunoRepo();	
 	
-	@RequestMapping(value = "/adicionarAluno/{nome}/{ra}",method=RequestMethod.GET)
+	@RequestMapping(value = "/addAluno/{nome}/{ra}",method=RequestMethod.POST)
 	public String criarAluno(@PathVariable String nome, @PathVariable int ra){
 		Aluno novo = new Aluno(nome,ra);  
 		repo.addAluno(novo);
@@ -21,38 +21,25 @@ public class AlunoController {
 	
 	@RequestMapping(value ="/listarAlunos",method=RequestMethod.GET)
 	public List<Aluno> getAlunos(){
-		/*for(Aluno a : repo.listarTodos()){
-			return ("Nome:" + a.getNome() + " Ra: " + a.getRa());
-		}
-	*/	
 		return repo.listarTodos();
 	}
     
 	@RequestMapping(value = "/buscaNome/{nome}",method=RequestMethod.GET)
-	public String buscarAluno(@PathVariable String nome){
+	public Aluno buscarAluno(@PathVariable String nome){
 		Aluno aluno = null;
 	    aluno = repo.buscarAluno(nome);
-	    if(aluno!=null)
-	    	return aluno.getNome();
-	    else
-	    	return "Vazio";
+	    return aluno;
 	}
 	
 	@RequestMapping(value = "/buscaRa/{ra}",method=RequestMethod.GET)
-	public String buscarAluno(@PathVariable Integer ra){
+	public Aluno buscarAluno(@PathVariable Integer ra){
 		Aluno aluno = null;
 	    aluno = repo.buscarAluno(ra);
-	    if(aluno!=null)
-	    	return aluno.getNome();
-	    else
-	    	return "Vazio";
+	    return aluno;
 	}
 	@RequestMapping(value = "/buscaAluno/{nome}/{ra}",method=RequestMethod.GET)
-	public String buscarAluno(@PathVariable String nome, @PathVariable Integer ra){
+	public Aluno buscarAluno(@PathVariable String nome, @PathVariable Integer ra){
 		Aluno aluno = repo.buscarAluno(nome, ra);
-		if(aluno != null)
-			return aluno.getNome();
-		else
-			return "Vazio";
+		return aluno;
 	}
 }
